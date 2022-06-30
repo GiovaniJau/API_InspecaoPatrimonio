@@ -10,7 +10,7 @@ import 'cryptography.dart';
 class EndPoints {
   final Cryptography crypto = Cryptography();
 
-  final client = SupabaseClient('https://rfabofnfgjriiycaozvo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmYWJvZm5mZ2pyaWl5Y2FvenZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTMwNDk3MDEsImV4cCI6MTk2ODYyNTcwMX0.jMwY_qK_O2c5_HlXofn2fs36oLEYxWUkj-F9a_uVYMw');
+  final client = SupabaseClient('INFORME_A_URL_DO_SUPABASE', 'INSIRA_A_SUA_SUPABASE_KEY');
 
   Handler get handler {
     final router = Router(
