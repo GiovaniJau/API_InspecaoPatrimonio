@@ -1,0 +1,705 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API desenvolvida na linguagem Dart para o programa de Formação Dev Flutter",
+    "version": "1.0.0",
+    "title": "Inspeção de Patrimônio API",
+    "contact": {
+      "email": "giovani.paleologo@inmetrics.com.br"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/GIGIOJAU/inspecaoPatrimonio/1.0.0",
+  "tags": [
+    {
+      "name": "login",
+      "description": "Exemplo para Login no sistema"
+    },
+    {
+      "name": "users",
+      "description": "Exemplo com os endPoints para Listar, Inserir, Alterar e Excluir usuários"
+    },
+    {
+      "name": "patrimony",
+      "description": "Exemplo com os endPoints para Listar os itens"
+    },
+    {
+      "name": "inspection",
+      "description": "Exemplo com os endPoints para Listar e  Inserir inspeções"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/users/listAll": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "lista todos os usuários cadastrados",
+        "description": "Retorna uma lista com o cadastro completo de todos os usuários cadastrados",
+        "operationId": "listAllUsers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "lista os usuários cadastrados",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/users/insert": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Insere um novo usuário",
+        "description": "Insere um novo usuário",
+        "operationId": "insertUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "description": "Dados do novo usuário",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserChange"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "registro Inserido"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/users/update/{id}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Altera um registro existente",
+        "description": "Altera um registro existente",
+        "operationId": "updateUser",
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "User",
+            "description": "Dados do usuário",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserChange"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "registro atualizado"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/users/delete/{id}": {
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Exclui um registro existente",
+        "description": "Exclui um registro existente",
+        "operationId": "deleteUser",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do usuário",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "registro atualizado"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "login"
+        ],
+        "summary": "Logs user into the system",
+        "description": "Logs user into the system",
+        "operationId": "loginUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User",
+            "description": "Dados do usuário",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Valid username and password",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LoginResultTrue"
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid username and password",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LoginResultFalse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimony/listAll": {
+      "get": {
+        "tags": [
+          "patrimony"
+        ],
+        "summary": "lista todos os itens de patrimônio cadastrados",
+        "description": "Retorna uma lista com todos os itens de patrimônio cadastrados",
+        "operationId": "listAllPatrimony",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "lista os itens de patrimônio cadastrados",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Patrimony"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/inspection/listAllByPatrimonyId/{patrimonyId}": {
+      "get": {
+        "tags": [
+          "inspection"
+        ],
+        "summary": "lista todas as inspeções do patrimônio selecionado",
+        "description": "Retorna uma lista com todas as inspeções do patrimônio selecionado",
+        "operationId": "listAllByPatrimonyId",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "patrimonyId",
+            "in": "path",
+            "description": "Id do patrimônio",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "lista as inspeções do patrimônio selecionado",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Inspection"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/inspection/insert": {
+      "post": {
+        "tags": [
+          "inspection"
+        ],
+        "summary": "Insere uma nova inspeção",
+        "description": "Insere uma nova inspeção",
+        "operationId": "insertInspection",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Inspection",
+            "description": "Dados da nova inspeção",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InspectionChange"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "registro Inserido"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "active",
+        "created_at",
+        "id",
+        "name",
+        "password"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "name": {
+          "type": "string",
+          "example": "First User"
+        },
+        "password": {
+          "type": "string",
+          "example": "TPjPSKcL4GB66Fbul9sHXg=="
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2022-05-20T15:27:33.000+0000"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "UserChange": {
+      "type": "object",
+      "required": [
+        "active",
+        "created_at",
+        "name",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "First User"
+        },
+        "password": {
+          "type": "string",
+          "example": "TPjPSKcL4GB66Fbul9sHXg=="
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2022-05-20T15:27:33.000+0000"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Login": {
+      "type": "object",
+      "required": [
+        "name",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "First"
+        },
+        "password": {
+          "type": "string",
+          "example": "1111"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "LoginResultTrue": {
+      "type": "object",
+      "required": [
+        "idUser",
+        "success"
+      ],
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "idUser": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "LoginResultFalse": {
+      "type": "object",
+      "required": [
+        "idUser",
+        "success"
+      ],
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": false
+        },
+        "idUser": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Patrimony": {
+      "type": "object",
+      "required": [
+        "acquisition",
+        "active",
+        "description",
+        "id",
+        "sector"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "description": {
+          "type": "string",
+          "example": "Cadeira giratória azul"
+        },
+        "acquisition": {
+          "type": "string",
+          "example": "1997-03-15"
+        },
+        "sector": {
+          "type": "string",
+          "example": "Escritório 1"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Inspection": {
+      "type": "object",
+      "required": [
+        "comments",
+        "date",
+        "id",
+        "inspectorId",
+        "offline",
+        "patrimonyId",
+        "photos",
+        "res1",
+        "res2",
+        "res3",
+        "res4",
+        "res5"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "patrimonyId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "date": {
+          "type": "string",
+          "example": "1997-03-15"
+        },
+        "inspectorId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "comments": {
+          "type": "string",
+          "format": "text",
+          "example": "Tecido do assento com desgaste excessivo, quase a ponto de se romper"
+        },
+        "res1": {
+          "type": "integer",
+          "format": "int",
+          "example": 1
+        },
+        "res2": {
+          "type": "integer",
+          "format": "int",
+          "example": 2
+        },
+        "res3": {
+          "type": "integer",
+          "format": "int",
+          "example": 3
+        },
+        "res4": {
+          "type": "integer",
+          "format": "int",
+          "example": 1
+        },
+        "res5": {
+          "type": "integer",
+          "format": "int",
+          "example": 2
+        },
+        "offline": {
+          "type": "boolean",
+          "example": false
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PhotoRelInspection"
+          }
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "InspectionChange": {
+      "type": "object",
+      "required": [
+        "comments",
+        "date",
+        "inspectorId",
+        "offline",
+        "patrimonyId",
+        "photos",
+        "res1",
+        "res2",
+        "res3",
+        "res4",
+        "res5"
+      ],
+      "properties": {
+        "patrimonyId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "date": {
+          "type": "string",
+          "example": "1997-03-15"
+        },
+        "inspectorId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "comments": {
+          "type": "string",
+          "format": "text",
+          "example": "Tecido do assento com desgaste excessivo, quase a ponto de se romper"
+        },
+        "res1": {
+          "type": "integer",
+          "format": "int",
+          "example": 1
+        },
+        "res2": {
+          "type": "integer",
+          "format": "int",
+          "example": 2
+        },
+        "res3": {
+          "type": "integer",
+          "format": "int",
+          "example": 3
+        },
+        "res4": {
+          "type": "integer",
+          "format": "int",
+          "example": 1
+        },
+        "res5": {
+          "type": "integer",
+          "format": "int",
+          "example": 2
+        },
+        "offline": {
+          "type": "boolean",
+          "example": false
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PhotoRelInspectionChange"
+          }
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "PhotoRelInspection": {
+      "type": "object",
+      "required": [
+        "id",
+        "inspectionId",
+        "urlPhoto"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "inspectionId": {
+          "type": "string",
+          "format": "uuid",
+          "example": "bf24f9d2-2992-43c9-9000-3813ac290aba"
+        },
+        "urlPhoto": {
+          "type": "string",
+          "format": "text",
+          "example": "1_01-01.png"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "PhotoRelInspectionChange": {
+      "type": "object",
+      "required": [
+        "urlPhoto"
+      ],
+      "properties": {
+        "urlPhoto": {
+          "type": "string",
+          "format": "text",
+          "example": "1_01-01.png"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    }
+  }
+}
